@@ -3,6 +3,7 @@
 ## 📖 介紹
 
 本系統是一個基於 Java Swing 的桌面應用程式，主要用於管理病患的藥品歷史記錄，並檢查新添加藥品之間的交互作用。
+
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/cb01a3e5-5bcb-4f2c-bda8-b0a26e158590" />
 
 
