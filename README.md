@@ -1,4 +1,4 @@
-# 藥物交互系統
+# 藥物交互系統 (Drug Interaction System)
 
 ## 📖 介紹
 
@@ -55,21 +55,52 @@ CREATE TABLE patient_drug_history (
 );
 ```
 
+## 🔍 檢查藥品交互作用邏輯
+
+```java
+private void submitDrugs() {
+    DefaultTableModel model = (DefaultTableModel) addedDrugTable.getModel();
+    int rowCount = model.getRowCount();
+
+    if (rowCount == 0) {
+        JOptionPane.showMessageDialog(frame, "尚未添加任何藥品！");
+        return;
+    }
+
+    try (Connection conn = DBConnection.getConnection()) {
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = i + 1; j < rowCount; j++) {
+                String drugA = model.getValueAt(i, 0).toString();
+                String drugB = model.getValueAt(j, 0).toString();
+                String sql = "SELECT remark FROM drug_interaction WHERE (drug_name_1=? AND drug_name_2=?) OR (drug_name_1=? AND drug_name_2=?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, drugA);
+                ps.setString(2, drugB);
+                ps.setString(3, drugB);
+                ps.setString(4, drugA);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(frame, "藥物交互作用警告：" + drugA + " 與 " + drugB + " 可能產生衝突！\n\n原因：" + rs.getString("remark"), "交互作用警告", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(frame, "藥品成功送出！無交互作用");
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(frame, "送出失敗，請檢查資料庫連線！");
+    }
+}
+```
+
 ## 🚀 執行方式
 
 1. **確保數據庫已設置並運行**。
-2. **修改 ****`DBConnection.java`** 以匹配你的數據庫設定。
-3. **使用 IDE（如 IntelliJ IDEA、Eclipse）或命令行執行 ****`T2.java`**。
+2. **修改 `DBConnection.java`** 以匹配你的數據庫設定。
+3. **使用 IDE（如 IntelliJ IDEA、Eclipse）或命令行執行 `T2.java`**。
 4. **開始添加藥品並檢查交互作用！**
 
 ## ⚠ 注意事項
-
 - ⚠ **藥品名稱需與資料庫匹配，否則無法添加**。
-- ⚠ **交互作用數據需事先錄入 ****`drug_interaction`**** 表中**。
+- ⚠ **交互作用數據需事先錄入 `drug_interaction` 表中**。
 - ⚠ **病患歷史記錄會根據日期分類顯示**。
-
-
-- **開發者**：你的名字（如果需要）
-- 📧 **聯繫方式**：你的郵件（可選）
-
-
