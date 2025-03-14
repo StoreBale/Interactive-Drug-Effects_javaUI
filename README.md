@@ -1,10 +1,10 @@
 藥物交互系統 (Drug Interaction System)
 
-📖 介紹
+📖 介紹 (Introduction)
 
 本系統是一個基於 Java Swing 的桌面應用程式，主要用於管理病患的藥品歷史記錄，並檢查新添加藥品之間的交互作用。
 
-✨ 功能特點
+✨ 功能特點 (Features)
 
 ✅ 病患資訊顯示：顯示病患基本資訊，例如年齡、病史等。
 
@@ -18,7 +18,7 @@
 
 ✅ 數據庫存儲：所有藥品記錄會存入資料庫中，以便未來查詢。
 
-🛠 環境需求
+🛠 環境需求 (Requirements)
 
 🔹 JDK 8 或以上
 
@@ -26,7 +26,7 @@
 
 🔹 JDBC 驅動 (確保 mysql-connector-java 已導入到專案中)
 
-📌 主要類別
+📌 主要類別 (Main Classes)
 
 T2.java
 
@@ -42,7 +42,7 @@ loadDrugsByDate(String date)：根據日期載入病患過去的用藥記錄。
 
 submitDrugs()：送出藥品並檢查交互作用。
 
-🗄 數據庫設計
+🗄 數據庫設計 (Database Schema)
 
 CREATE TABLE drug (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,7 +65,7 @@ CREATE TABLE patient_drug_history (
     FOREIGN KEY (drug_name) REFERENCES drug(drug_name)
 );
 
-🚀 執行方式
+🚀 執行方式 (How to Run)
 
 確保數據庫已設置並運行。
 
@@ -75,7 +75,7 @@ CREATE TABLE patient_drug_history (
 
 開始添加藥品並檢查交互作用！
 
-⚠ 注意事項
+⚠ 注意事項 (Notes)
 
 ⚠ 藥品名稱需與資料庫匹配，否則無法添加。
 
