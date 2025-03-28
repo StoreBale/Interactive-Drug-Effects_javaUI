@@ -29,7 +29,7 @@ public class DBConnection {
         return null;
     }
 
-    // 測試查詢資料
+    // 測試查詢
     public static void queryData() {
         String sql = "SELECT * FROM drug"; // 指定 T1 資料庫中的 drug 表
         try (Connection conn = getConnection();
